@@ -2,8 +2,12 @@ const express = require('express');
 const axios = require('axios');
 require('dotenv').config();
 
+
 const app = express();
 const port = 3000;
+const cors = require('cors');
+app.use(cors());
+
 
 app.get('/auth/callback', async (req, res) => {
   const { code } = req.query;
