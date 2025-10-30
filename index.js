@@ -14,6 +14,10 @@ app.post('/auth/callback', async (req, res) => {
   const { code, code_verifier } = req.body;
 
   try {
+
+    const credentials = `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`;
+const encodedCredentials = Buffer.from(credentials).toString('base64');
+
     const response = await axios.post(
       'https://api.twitter.com/2/oauth2/token',
       qs.stringify({
@@ -26,7 +30,9 @@ app.post('/auth/callback', async (req, res) => {
       }),
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded',
+
+          'Authorization': `Basic ${encodedCredentials}`
         }
       }
     );
