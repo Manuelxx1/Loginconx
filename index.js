@@ -41,8 +41,9 @@ app.post('/auth/callback', async (req, res) => {
 
     res.json(userResponse.data.data); // Twitter responde con { data: { ... } }
   } catch (error) {
-    console.error('Error:', error.response?.data || error.message);
-    res.status(500).send('Error en el login con X');
+    console.error('Error en Twitter:', error.response?.data || error.message);
+res.status(500).json({ error: error.response?.data || error.message });
+
   }
 });
 
